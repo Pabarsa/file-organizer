@@ -62,7 +62,7 @@ java -cp out organizer.Main /home/pablo/Descargas --dry-run
 ```
 
 ```
-Modo simulacion - no se movera ningun archivo.
+Modo simulación — no se moverá ningún archivo.
 
   [dry-run]  informe_2024.pdf     →  /home/pablo/Descargas/Documentos/informe_2024.pdf
   [dry-run]  vacaciones.jpg       →  /home/pablo/Descargas/Imagenes/vacaciones.jpg
