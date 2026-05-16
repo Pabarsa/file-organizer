@@ -14,12 +14,10 @@ import java.util.List;
 public class FileOrganizer {
 
     private final CliArgs args;
-    private final FileTypeRegistry registry;
     private final FileMover mover;
 
     public FileOrganizer(CliArgs args) {
         this.args = args;
-        this.registry = new FileTypeRegistry();
         this.mover = new FileMover(args.isDryRun());
     }
 
@@ -37,20 +35,20 @@ public class FileOrganizer {
         }
 
         List<String> errors = new ArrayList<>();
+        int ok = 0;
 
         for (Path file : files) {
             try {
                 String ext      = FileTypeRegistry.extractExtension(file.getFileName().toString());
-                String category = registry.categoryFor(ext);
+                String category = FileTypeRegistry.categoryFor(ext);
                 Path targetDir  = folder.resolve(category);
                 mover.move(file, targetDir);
+                ok++;
             } catch (IOException e) {
                 // Un fallo en un archivo no interrumpe el resto
                 errors.add(file.getFileName() + ": " + e.getMessage());
             }
         }
-
-        int ok = files.size() - errors.size();
         System.out.printf("%n%s %d archivo(s).%n",
                 args.isDryRun() ? "Se moverian" : "Organizados", ok);
 

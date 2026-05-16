@@ -33,11 +33,12 @@ public class FileTypeRegistry {
             EXTENSION_TO_CATEGORY.put(ext, "Comprimidos");
     }
 
-    public String categoryFor(String extension) {
+    public static String categoryFor(String extension) {
         return EXTENSION_TO_CATEGORY.getOrDefault(extension.toLowerCase(), "Otros");
     }
 
-    /** Extrae la extensión de un nombre de archivo, sin el punto. */
+    /** Extrae la extensión de un nombre de archivo, sin el punto.
+     *  Archivos tipo ".gitignore" (dot > 0 falla) devuelven "" y van a "Otros": intencionado. */
     public static String extractExtension(String filename) {
         int dot = filename.lastIndexOf('.');
         return dot > 0 ? filename.substring(dot + 1) : "";
